@@ -89,7 +89,6 @@ public class RootServlet extends HttpServlet {
 		req.setAttribute("addDir", "/addDir");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/root.jsp");
 		rd.forward(req, resp);
-		
 	}
 	
 	private void displayAlert(String msg, String path, PrintWriter out) {
@@ -106,7 +105,6 @@ public class RootServlet extends HttpServlet {
 			com.arjun.assignment3.User user;
 			// print out what was stored for each user
 			user = pm.getObjectById(com.arjun.assignment3.User.class, user_key);
-	        
 			files.clear();
 			directories.clear();
 			for (directory ctemp : user.getDirectoriesWithParent(parent)) {
