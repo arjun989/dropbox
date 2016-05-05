@@ -89,6 +89,7 @@ public class RootServlet extends HttpServlet {
 		req.setAttribute("addDir", "/addDir");
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/root.jsp");
 		rd.forward(req, resp);
+		
 	}
 	
 	private void displayAlert(String msg, String path, PrintWriter out) {
