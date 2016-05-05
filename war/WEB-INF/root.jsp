@@ -14,10 +14,12 @@
 			<p style="text-align: center">
 				Welcome ${user.email} <br />
 			</p>
-			<p style="text-align: center">
-				You can signout <a href="${logout_url}">here</a><br />
-			</p>
-			<h2>Path : ${path}/${current}</h2>
+			<div align="center">
+				<form method="post">
+					<input value="signout" name="signout" type="submit"/>
+				</form>
+			</div>
+			<h2>Path : ${path}</h2>
 			<h3>Sub-Directories :</h3>
 			
 			<script>
@@ -36,7 +38,7 @@
 							for (int i = 0; i < arr.size(); i++) {
 
 								out.write("<lable>" + arr.get(i) + "</lable>");
-								out.write("<input type=\"submit\" name=\"" + (i + "edt") + "\" value=\"Enter\" \\>");
+								out.write("<input type=\"submit\" name=\"" + (i + "ent") + "\" value=\"Enter\" \\>");
 								out.write("<input type=\"submit\" name=\"" + (i + "dlt") + "\" value=\"Delete\" \\>");
 								out.write("<br/><br/>");
 
