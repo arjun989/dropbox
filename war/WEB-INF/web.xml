@@ -12,4 +12,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Root</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpAndDownServlet</servlet-name>
+		<servlet-class>com.arjun.assignment3.UpAndDownServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpAndDownServlet</servlet-name>
+		<url-pattern>/upanddown</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addFolder</servlet-name>
+		<servlet-class>com.arjun.assignment3.addFolder</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addFolder</servlet-name>
+		<url-pattern>/addDir</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

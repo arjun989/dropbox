@@ -1,0 +1,98 @@
+DATABASE NAME : TMS
+PASSWORD : abc
+
+======auto_inc  (Generic)====== 
+
+CREATE SEQUENCE EMP_SEQ;
+
+CREATE OR REPLACE TRIGGER EMP_TRG 
+BEFORE INSERT ON employee 
+FOR EACH ROW
+WHEN (new.id IS NULL)
+BEGIN
+  :new.id := EMP_SEQ.nextval;
+END;
+
+======Table creation and population======
+
+create table "TMS".employee
+(
+    id INTEGER not null,
+    name VARCHAR2 (255) not null,
+    address VARCHAR2 (255)  not null,
+    phone VARCHAR2  (255) not null,
+    designation VARCHAR2  (255) not null,
+    shift VARCHAR2  (255) not null,
+    primary key (id)
+)
+insert into employee (name,address,phone,designation,shift) values ('blake','test address 1','23231232','ticket seller','Day');
+insert into employee (name,address,phone,designation,shift) values ('smith','test address 2','7687564','ticket seller','Night');
+insert into employee (name,address,phone,designation,shift) values ('chris','test address 3','9897865','ticket seller','Day');
+
+create table customer (id INTEGER not null,
+    name VARCHAR2 (255) not null,
+    address VARCHAR2 (255)  not null,
+    phone VARCHAR2  (255) not null,
+    primary key (id)
+)
+insert into customer (name,address,phone) values ('shivani','test address 1','1234567');
+insert into customer (name,address,phone) values ('john','test address 2','9894567');
+insert into customer (name,address,phone) values ('doe','test address 3','1256567');
+
+create table tickets_info 
+(
+	info_id INTEGER not null,
+	emp_id INTEGER not null,
+	cust_id INTEGER  not null,
+	primary key (info_id),
+	foreign key (emp_id) references employee(id),
+	foreign key (cust_id) references customer(id)
+)
+insert into tickets_info (emp_id,cust_id) values (21,4);
+insert into tickets_info (emp_id,cust_id) values (21,5);
+insert into tickets_info (emp_id,cust_id) values (22,6);
+
+create table station (station_id INTEGER not null,station_name VARCHAR2 (255), primary key (station_id))
+insert into station (station_name) values ('City A');
+insert into station (station_name) values ('City B');
+insert into station (station_name) values ('City C');
+insert into station (station_name) values ('City D');
+
+create table train (
+	train_id INTEGER not null,
+	name VARCHAR2 (255) not null,
+	starting_point INTEGER not null,
+	ending_point INTEGER not null,
+	direction VARCHAR2 (255) not null,
+	primary key (train_id),
+	foreign key (starting_point) references station(station_id),
+	foreign key (ending_point) references station(station_id)
+)
+insert into train(name,starting_point,ending_point,direction) values ('Train A-B',1,2,'up');
+insert into train(name,starting_point,ending_point,direction) values ('Train B-C',2,3,'up');
+insert into train(name,starting_point,ending_point,direction) values ('Train A-C',1,3,'down');
+
+create table fare (
+	fare_id INTEGER not null,
+	source INTEGER not null,
+	destination INTEGER not null,
+	train_id INTEGER not null,
+	amount INTEGER not null,
+	primary key (fare_id),
+	foreign key (source) references station(station_id),
+	foreign key (destination) references station(station_id)
+)
+insert into fare(source,destination,train_id,amount) values (1,2,1,20);
+insert into fare(source,destination,train_id,amount) values (2,3,2,40);
+
+create table ticket (
+	ticket_id INTEGER not null,
+	fare_id INTEGER not null,
+	info_id INTEGER not null,
+	seat_no INTEGER not null,
+	departure_time VARCHAR2 (255) not null,
+	arrival_time VARCHAR2 (255) not null,
+	primary key (ticket_id),
+	foreign key (fare_id) references fare(fare_id),
+	foreign key (info_id) references tickets_info(info_id)
+)
